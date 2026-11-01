@@ -540,6 +540,16 @@ body[data-m="nr"]{--tab:var(--nr);--tabl:#B98CFF}
 #chgtab thead th:first-child{z-index:2;background:#0B192C}
 #chgtab tr.gtot td:first-child{background:#13243B}
 .chg-chart svg{display:block;width:100%;height:auto}
+.dlv-k{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:4px}
+@media (max-width:520px){.dlv-k{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#dlvtab td,#dlvunit td{white-space:nowrap}
+#dlvtab th:first-child,#dlvtab td:first-child,#dlvunit th:first-child,#dlvunit td:first-child{position:sticky;left:0;z-index:1;background:#0E1D32;box-shadow:1px 0 0 var(--line)}
+#dlvtab thead th:first-child,#dlvunit thead th:first-child{z-index:2;background:#0B192C}
+#dlvtab tr.gtot td:first-child,#dlvunit tr.gtot td:first-child{background:#13243B}
+#dlvtab tr.nod td{color:var(--mute)}
+.dbar{display:inline-block;height:8px;border-radius:4px;background:var(--tab);opacity:.6;vertical-align:middle;margin-right:8px;max-width:80px}
+@media (max-width:520px){.dbar{display:none}}
+#dlvnote{margin-top:8px}
 .chg-chart .ax{font:500 11px var(--fb);fill:var(--mute)}
 .chg-chart .lb{font:700 12px var(--fd);fill:var(--ink)}
 .agebar i{display:block;height:100%}
@@ -678,6 +688,17 @@ mark{background:var(--hi);color:var(--hi-ink);border-radius:3px;padding:0 2px}
     <h2 style="margin-top:18px" id="chgh">Closing stock by day · MT</h2>
     <div class="chg-chart" id="chgchart"></div>
     <p class="s-hint" id="chgnote"></p>
+  </section>
+
+  <section class="card" id="dlvpanel" style="margin-top:16px">
+    <h2>Daily delivery</h2>
+    <p class="s-hint" id="dlvhint"></p>
+    <div class="dlv-k" id="dlvk"></div>
+    <div class="s-tw" style="margin-top:12px"><table id="dlvtab"></table></div>
+    <h2 style="margin-top:18px">Delivery by unit · MT</h2>
+    <div class="s-tw"><table id="dlvunit"></table></div>
+    <p class="s-hint" id="dlvnote"></p>
+    <div class="s-more"><button class="s-btn" id="dlvcsv" type="button">Download CSV</button></div>
   </section>
 
   <section class="card" id="cappanel" style="margin-top:16px">
@@ -1211,7 +1232,7 @@ function render(){
   const qw=st.q.toLowerCase().split(/\s+/);
   TC.querySelectorAll('.fchip').forEach(b=>b.classList.toggle('on',qw.includes(b.dataset.q.toLowerCase())));
   const all=filtered(false), rows=filtered(true);
-  renderChange(SYSU[st.sys],inNR);
+  renderChange(SYSU[st.sys],inNR);renderDelivery(SYSU[st.sys],inNR);
   // aged KPI (usable stock in this tab, 180+ days since production)
   const agedRows=D.rows.filter(r=>(inNR?r.s==='N':(r.s!=='N'&&(st.sys==='All'||UN[r.u][2]===st.sys)))&&r.age!=null&&r.age>180);
   const agedKg=agedRows.reduce((a,r)=>a+r.kg,0);const tabBase=D.rows.filter(r=>inNR?r.s==='N':(r.s!=='N'&&(st.sys==='All'||UN[r.u][2]===st.sys))).reduce((a,r)=>a+r.kg,0);
@@ -1390,7 +1411,37 @@ function renderChange(SU,inNR){
   T('chgchart',`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Closing stock by day">${g}<path d="${gp}" fill="none" stroke="var(--mute)" stroke-width="1.5" stroke-dasharray="3 4"/><path d="${path}" fill="none" stroke="var(--tab)" stroke-width="2" stroke-linejoin="round"/>${dots}<circle cx="${X(last.d).toFixed(1)}" cy="${Y(last.v).toFixed(1)}" r="4.5" fill="var(--tab)" stroke="#0E1D32" stroke-width="2"/><text class="lb" x="${(X(last.d)+8).toFixed(1)}" y="${(Y(last.v)+4).toFixed(1)}">${nf.format(Math.round(last.v))}</text>${xl}</svg>`);
   T('chgnote',`${inNR?'NR Garments stock':'Total stock (Regular + Loose + NR Garments)'} at each day's closing; hover or tap a point for the value. ${gaps.length?'No report yet for '+gaps.join(', ')+' (dotted line). ':''}Closing figures come from each report's grand-total rows. The history grows with each day's report. Other = returns, re-winding and moves between the Regular and NR ledgers.`);
 }
-let CLR=[],SML=[];
+function renderDelivery(SU,inNR){
+  /* delivery = the "Delivery" column of each day's report (issues / twisting / re-winding delivery not included) */
+  const ST=inNR?['N']:['R','L','N'];
+  const dv=(e,u,ss)=>ss.reduce((a,s)=>a+((e.u[u]||{})[s]?e.u[u][s][4]:0),0);
+  const hasRot=SU.some(u=>u[0]==='Rotor'),split=hasRot&&SU.some(u=>u[0]!=='Rotor');
+  const cols=split?[['Rotor','Rotor unit'],['_oth','Others']]:SU.length>1?SU.map(u=>[u[0],u[1]]):[];
+  const rows=HIST.slice().reverse().map(e=>{const pu={};SU.forEach(u=>{pu[u[0]]=dv(e,u[0],ST)});const t=SU.reduce((a,u)=>a+pu[u[0]],0);
+    pu._oth=t-(pu.Rotor||0);const nr=inNR?0:SU.reduce((a,u)=>a+dv(e,u[0],['N']),0);return {d:e.d,pu,t,nr}});
+  const d0=HIST[0].d,d1=HIST[HIST.length-1].d,mk=d1.slice(0,7);
+  const mrows=rows.filter(r=>r.d.slice(0,7)===mk),mfirst=mrows.length?mrows[mrows.length-1].d:d1;
+  const mon=new Date(d1+'T00:00:00').toLocaleDateString('en-GB',{month:'long'});
+  const sumR=(rs,f)=>rs.reduce((a,r)=>a+f(r),0);
+  const tot=sumR(rows,r=>r.t),mtd=sumR(mrows,r=>r.t),act=rows.filter(r=>r.t>0.5),avg=act.length?tot/act.length:0,mx=Math.max(1,...rows.map(r=>r.t));
+  DLV={rows,SU,cols,inNR,d0,d1};
+  const wd=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  const ms=mfirst.slice(8)!=='01'?` (from ${fds(mfirst)})`:'';
+  T('dlvhint',`Delivery written in each day's report · ${inNR?'NR Garments ledger only':'Regular + Loose + NR Garments'}${!inNR&&st.sys!=='All'?' · '+esc(st.sys)+' units':''}. ${act.length} delivery day${act.length===1?'':'s'} in ${rows.length} report days (${fds(d0)} – ${fds(d1)}), newest first. MT = metric ton (1,000 kg).`);
+  T('dlvk',`<div class="fl"><span class="k">Last report · ${fds(rows[0].d)}</span><b>${tonf(rows[0].t)}</b></div><div class="fl"><span class="k">${mon} so far${ms}</span><b>${tonf(mtd)}</b></div><div class="fl"><span class="k">Total since ${fds(d0)}</span><b>${tonf(tot)}</b></div><div class="fl"><span class="k">Average per delivery day</span><b>${tonf(avg)}</b></div>`);
+  let h=`<thead><tr><th>Date</th><th class="r">Total MT</th>${cols.map(c=>`<th class="r">${esc(c[1])}</th>`).join('')}${inNR?'':'<th class="r">of which NR</th>'}</tr></thead><tbody>`;
+  rows.forEach(r=>{const z=r.t<=0.5;
+    h+=`<tr class="${z?'nod':''}"><td>${wd(r.d)}</td><td class="r num">${z?'No delivery':`<span class="dbar" style="width:${Math.max(3,r.t/mx*80).toFixed(0)}px"></span><b>${tonf(r.t)}</b>`}</td>${cols.map(c=>`<td class="r num">${z?'–':tonf(r.pu[c[0]]||0)}</td>`).join('')}${inNR?'':`<td class="r num">${z?'–':tonf(r.nr)}</td>`}</tr>`});
+  h+=`<tr class="gtot"><td>Total · ${rows.length} days</td><td class="r num">${tonf(tot)}</td>${cols.map(c=>`<td class="r num">${tonf(sumR(rows,r=>r.pu[c[0]]||0))}</td>`).join('')}${inNR?'':`<td class="r num">${tonf(sumR(rows,r=>r.nr))}</td>`}</tr>`;
+  T('dlvtab',h+'</tbody>');
+  let u=`<thead><tr><th>Unit</th><th class="r">${fds(rows[0].d)}</th><th class="r">${esc(mon)} so far</th><th class="r">Since ${fds(d0)}</th><th class="r">Avg / delivery day</th><th class="r">Share</th></tr></thead><tbody>`;
+  SU.forEach(([k,nm])=>{const ut=sumR(rows,r=>r.pu[k]||0),ua=act.length?ut/act.length:0;
+    u+=`<tr><td><b>${esc(nm)}</b></td><td class="r num">${tonf(rows[0].pu[k]||0)}</td><td class="r num">${tonf(sumR(mrows,r=>r.pu[k]||0))}</td><td class="r num"><b>${tonf(ut)}</b></td><td class="r num">${tonf(ua)}</td><td class="r num">${tot?(ut/tot*100).toFixed(1):'0.0'}%</td></tr>`});
+  if(SU.length>1)u+=`<tr class="gtot"><td>Total</td><td class="r num">${tonf(rows[0].t)}</td><td class="r num">${tonf(mtd)}</td><td class="r num">${tonf(tot)}</td><td class="r num">${tonf(avg)}</td><td class="r num">100%</td></tr>`;
+  T('dlvunit',u+'</tbody>');
+  T('dlvnote',`Delivery = the Delivery column of each unit's report. Issues, twisting and re-winding delivery are not counted here (they are in "Delivery & issue" above). Average is over days with delivery; Friday reports usually have none. A day with no report has no row.`);
+}
+let CLR=[],SML=[],DLV=null;
 document.getElementById('smlcsv').onclick=async()=>{
   const L=[['Yarn Stock Finder · Small lots below 1000 kg'],['Closing stock',fdd(D.asof)],[],['Count','Item','Unit','Ledger','Lot no.','Kg','Bags','Age days','Unchanged','Est. value $','Remarks']];
   SML.forEach(g=>{const r=g.r;L.push([r.c,r.q,UN[r.u][1],STREAM[r.s],r.lot,Math.round(g.kg*100)/100,g.b,g.age,mvT(r.mv),Math.round(g.v),g.rm])});
@@ -1402,6 +1453,13 @@ document.getElementById('clrcsv').onclick=async()=>{
     ['Rank','Unit','Ledger','Count','Quality / blend','Lot no.','Production date','Age days','Kg','Bags','Est. cost $/kg','Est. value $','Cost match','Unchanged','Unchanged since','Remarks']];
   CLR.forEach((x,i)=>{const r=x.r;L.push([i+1,UN[r.u][1],STREAM[r.s],r.c,r.q,r.lot,r.pd||r.pr,r.age,r.kg,r.b,r.cv,Math.round(x.v),r.cx?'nearest process':'exact',mvT(r.mv),r.mv?r.mv.since:'',r.rm])});
   const res=await saveFile(`clearance-priority-${D.asof}.csv`,csvOf(L),'text/csv');if(res==='saved')showToast('CSV ready');
+};
+document.getElementById('dlvcsv').onclick=async()=>{
+  if(!DLV)return;const {rows,SU,inNR}=DLV;
+  const L=[['Yarn Stock Finder · Daily delivery (kg)'],['Report days',fdd(DLV.d0)+' to '+fdd(DLV.d1)],['Ledgers',inNR?'NR Garments only':'Regular + Loose + NR Garments'],['Delivery = the Delivery column of each report; issues, twisting and re-winding delivery not included'],[],
+    ['Date',...SU.map(u=>u[1]),...(SU.some(u=>u[0]==='Rotor')&&SU.length>1?['Rotor unit','Others']:[]),'Total',...(inNR?[]:['of which NR'])]];
+  rows.slice().reverse().forEach(r=>L.push([r.d,...SU.map(u=>Math.round((r.pu[u[0]]||0)*100)/100),...(SU.some(u=>u[0]==='Rotor')&&SU.length>1?[Math.round((r.pu.Rotor||0)*100)/100,Math.round(r.pu._oth*100)/100]:[]),Math.round(r.t*100)/100,...(inNR?[]:[Math.round(r.nr*100)/100])]));
+  const res=await saveFile(`daily-delivery-${D.asof}.csv`,csvOf(L),'text/csv');if(res==='saved')showToast('CSV ready');
 };
 
 drawFams();render();RENDER=render;
