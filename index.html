@@ -588,6 +588,59 @@ mark{background:var(--hi);color:var(--hi-ink);border-radius:3px;padding:0 2px}
 .toast.on{opacity:1}
 .sf-r .by b{color:#fff}
 
+/* ===== 10-day report ===== */
+:root{--c-prod:#6E94FF;--c-del:#2FC9B0;--c-stk:#F2A33A;--c-up:#F2A33A;--c-dn:#3DD68C}
+.jump{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:10px 0 0;font-size:12px;color:var(--mute)}
+.jump a{color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:5px 11px;background:var(--card)}
+.jump a:hover{border-color:var(--tab)}
+.ten h3{font-size:12.5px;margin:16px 0 6px;color:var(--ink);font-weight:700;letter-spacing:.01em}
+.ten-msg{font-size:15px;line-height:1.45;font-weight:600;color:var(--ink);border-left:4px solid var(--c-stk);background:color-mix(in srgb,var(--c-stk) 10%,transparent);padding:10px 14px;border-radius:0 8px 8px 0;margin:6px 0 0}
+.ten-msg b{color:var(--c-stk)}.ten-msg b.xd{color:var(--c-dn)}
+.ten-msg small{display:block;font-size:12px;font-weight:400;color:var(--mute);margin-top:3px}
+.ten-k{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.ten-k>div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--ink) 2%,transparent)}
+.ten-k .l{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);font-weight:700;display:flex;align-items:center;gap:6px}
+.ten-k .l i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.ten-k .v{font-size:22px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.ten-k .v small{font-size:12px;font-weight:600;color:var(--mute)}
+.ten-k .s{font-size:11.5px;color:var(--mute);margin-top:1px}
+.ten-flow{display:flex;align-items:stretch;margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ten-flow>div{flex:1;padding:8px 8px;text-align:center;background:color-mix(in srgb,var(--ink) 3%,transparent);min-width:0}
+.ten-flow>div.op{flex:0 0 18px;padding:0;display:flex;align-items:center;justify-content:center;background:transparent;color:var(--mute);font-weight:700}
+.ten-flow>div.end{background:color-mix(in srgb,var(--tab) 22%,transparent)}
+.ten-flow .l{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);font-weight:600}
+.ten-flow .v{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);margin-top:1px}
+.ten-lg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--mute);margin-top:14px}
+.ten-lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.ten-lg .lp{background:var(--c-prod)}.ten-lg .ld{background:var(--c-del)}.ten-lg .ls{background:var(--c-stk);height:3px;vertical-align:3px}.ten-lg .la{height:0;border-top:1.5px dashed var(--c-prod);vertical-align:3px}
+.ten-chart svg{display:block;width:100%;height:auto;margin-top:4px}
+.ten-chart .g{stroke:var(--line)}.ten-chart .ax{fill:var(--mute);font-size:10px}.ten-chart .ax2{fill:var(--c-stk);font-size:10px}
+.ten-chart .bp{fill:var(--c-prod)}.ten-chart .bd{fill:var(--c-del)}.ten-chart .avg{stroke:var(--c-prod);stroke-dasharray:4 4;opacity:.85}
+.ten-chart .sl{fill:none;stroke:var(--c-stk);stroke-width:2.4}.ten-chart .sd{fill:var(--c-stk);stroke:var(--card);stroke-width:1.5}
+.ten-chart .dl{fill:var(--ink);font-size:10.5px}.ten-chart .wd{fill:var(--mute);font-size:9.5px}.ten-chart .lab{fill:var(--c-stk);font-size:11px;font-weight:700}.ten-chart .z{fill:var(--c-del);font-size:9px}
+.ten-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.ten-two>div{min-width:0}
+#tentab td{white-space:nowrap}
+#tentab tr.nod td{color:var(--mute)}
+.ten .xu{color:var(--c-up)}.ten .xd{color:var(--c-dn)}
+.tu{display:grid;grid-template-columns:minmax(92px,1.2fr) 1.6fr 58px 50px;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.tu.h{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);font-weight:700;border-bottom:1.5px solid var(--line-2)}
+.tu .n{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tu .b{position:relative;height:14px}
+.tu .b::before{content:"";position:absolute;left:50%;top:-5px;bottom:-5px;border-left:1px solid var(--line-2)}
+.tu .b i{position:absolute;top:1px;height:12px;border-radius:2px}
+.tu .b i.u{left:50%;background:var(--c-up)}.tu .b i.d{right:50%;background:var(--c-dn)}
+.tu .c{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.tu .cl{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+.ten-pts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ten-pts>div{border:1px solid var(--line);border-top:3px solid var(--tab);border-radius:0 0 8px 8px;padding:9px 12px;font-size:13px;line-height:1.45;color:var(--ink)}
+.ten-pts b{display:block;font-size:12px;letter-spacing:.02em;margin-bottom:2px}
+@media (max-width:760px){.ten-two{grid-template-columns:minmax(0,1fr)}.ten-pts{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){#tentab th,#tentab td{padding:6px 5px;font-size:12px}#tentab .wk,#tentab .lx{display:none}#tentab th{letter-spacing:.02em}.ten-msg{font-size:14px}}
+@media (max-width:620px){.ten-k{grid-template-columns:repeat(2,minmax(0,1fr))}.ten-k .v{font-size:19px}
+  .ten-flow{flex-wrap:wrap}.ten-flow>div{flex:1 1 30%}.ten-flow>div.op{display:none}.ten-flow>div{border:1px solid var(--line);margin:-0.5px}}
+:root:root:root[data-theme="light"]{--c-prod:#2F5FC4;--c-del:#0E9F8C;--c-stk:#C26A10;--c-up:#B5501A;--c-dn:#137A43}
+
 /* ===== day mode (light) ===== */
 .thm{position:absolute;top:12px;right:max(14px,env(safe-area-inset-right,0px));z-index:5;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 13px;border:1px solid rgba(255,255,255,.26);border-radius:99px;background:rgba(7,17,31,.55);color:#D6E2EE;font:600 12.5px var(--fb);letter-spacing:.04em;cursor:pointer}
 .thm:hover{border-color:rgba(255,255,255,.5)}
@@ -682,6 +735,8 @@ mark{background:var(--hi);color:var(--hi-ink);border-radius:3px;padding:0 2px}
   </section>
   <p class="valnote" role="note"><b>⚠ Value is an estimate, not exact.</b> It is kg × cost/kg from the Yarn Costing app at current fibre prices (Regular Cotton Australia, standard mixes, fixed cost). It is not the selling price or the book value. Lots made earlier at other fibre prices, blends costed with the nearest process (≈) and sample yarn make the real figure different.</p>
 
+  <p class="jump">Jump to <a href="#tenpanel">10-day report</a><a href="#dlvpanel">Daily delivery</a><a href="#smlpanel">Small lots</a><a href="#chgpanel">Daily change</a></p>
+
   <section class="card">
     <h2>Search stock</h2>
     <div class="s-q">
@@ -755,6 +810,23 @@ mark{background:var(--hi);color:var(--hi-ink);border-radius:3px;padding:0 2px}
     <h2 style="margin-top:18px" id="chgh">Closing stock by day · MT</h2>
     <div class="chg-chart" id="chgchart"></div>
     <p class="s-hint" id="chgnote"></p>
+  </section>
+
+  <section class="card ten" id="tenpanel" style="margin-top:16px">
+    <h2 id="tenh">Last 10 days · production, delivery and stock</h2>
+    <p class="s-hint" id="tensub" style="margin-top:2px"></p>
+    <p class="ten-msg" id="tenmsg"></p>
+    <div class="ten-k" id="tenk"></div>
+    <div class="ten-flow" id="tenflow"></div>
+    <div class="ten-lg"><span><i class="lp"></i>Production</span><span><i class="ld"></i>Delivery</span><span><i class="la"></i>Avg production</span><span><i class="ls"></i>Closing stock (right scale)</span></div>
+    <div class="ten-chart" id="tenchart"></div>
+    <div class="ten-two">
+      <div><h3>Daily figures · MT</h3><div class="s-tw"><table id="tentab"></table></div></div>
+      <div><h3>Stock change by unit · MT</h3><div id="tenunit"></div></div>
+    </div>
+    <h3>Key points</h3>
+    <div class="ten-pts" id="tenpts"></div>
+    <p class="s-hint" id="tennote"></p>
   </section>
 
   <section class="card" id="dlvpanel" style="margin-top:16px">
@@ -1305,7 +1377,7 @@ function render(){
   const qw=st.q.toLowerCase().split(/\s+/);
   TC.querySelectorAll('.fchip').forEach(b=>b.classList.toggle('on',qw.includes(b.dataset.q.toLowerCase())));
   const all=filtered(false), rows=filtered(true);
-  renderChange(SYSU[st.sys],inNR);renderDelivery(SYSU[st.sys],inNR);
+  renderChange(SYSU[st.sys],inNR);renderTen(SYSU[st.sys],inNR);renderDelivery(SYSU[st.sys],inNR);
   // aged KPI (usable stock in this tab, 180+ days since production)
   const agedRows=D.rows.filter(r=>(inNR?r.s==='N':(r.s!=='N'&&(st.sys==='All'||UN[r.u][2]===st.sys)))&&r.age!=null&&r.age>180);
   const agedKg=agedRows.reduce((a,r)=>a+r.kg,0);const tabBase=D.rows.filter(r=>inNR?r.s==='N':(r.s!=='N'&&(st.sys==='All'||UN[r.u][2]===st.sys))).reduce((a,r)=>a+r.kg,0);
@@ -1484,6 +1556,77 @@ function renderChange(SU,inNR){
   T('chgchart',`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Closing stock by day">${g}<path d="${gp}" fill="none" stroke="var(--mute)" stroke-width="1.5" stroke-dasharray="3 4"/><path d="${path}" fill="none" stroke="var(--tab)" stroke-width="2" stroke-linejoin="round"/>${dots}<circle cx="${X(last.d).toFixed(1)}" cy="${Y(last.v).toFixed(1)}" r="4.5" fill="var(--tab)" stroke="#0E1D32" stroke-width="2"/><text class="lb" x="${(X(last.d)+8).toFixed(1)}" y="${(Y(last.v)+4).toFixed(1)}">${nf.format(Math.round(last.v))}</text>${xl}</svg>`);
   T('chgnote',`${inNR?'NR Garments stock':'Total stock (Regular + Loose + NR Garments)'} at each day's closing; hover or tap a point for the value. ${gaps.length?'No report yet for '+gaps.join(', ')+' (dotted line). ':''}Closing figures come from each report's grand-total rows. The history grows with each day's report. Other = returns, re-winding and moves between the Regular and NR ledgers.`);
 }
+function renderTen(SU,inNR){
+  /* last 10 report days: production, delivery and the stock they moved; follows the unit tab */
+  const ST=inNR?['N']:['R','L','N'];
+  const f=(e,u,i,ss)=>(ss||ST).reduce((a,s)=>a+((e.u[u]||{})[s]?e.u[u][s][i]:0),0);
+  const su=(e,i,ss)=>SU.reduce((a,u)=>a+f(e,u[0],i,ss),0);
+  const n=Math.min(10,HIST.length),W=HIST.slice(-n),pe=HIST.length>n?HIST[HIST.length-n-1]:null;
+  const P_=document.getElementById('tenpanel');if(n<2){P_.style.display='none';return}P_.style.display='';
+  const days=W.map(e=>({d:e.d,prod:su(e,1),rew:su(e,2)+su(e,3),del:su(e,4),iss:su(e,5),close:su(e,6)}));
+  const open0=pe?su(pe,6):su(W[0],0);let pc=open0;days.forEach(x=>{x.net=x.close-pc;pc=x.close});
+  const S=(a,k)=>a.reduce((x,y)=>x+y[k],0);
+  const P=S(days,'prod'),Dl=S(days,'del'),RW=S(days,'rew'),IS=S(days,'iss'),close=days[n-1].close,net=close-open0,OT=net-(P+RW-Dl-IS);
+  const act=days.filter(x=>x.del>500),avgP=P/n,avgD=act.length?Dl/act.length:0;
+  const d0=days[0].d,d1=days[n-1].d,openLbl=pe?fds(pe.d):fds(d0)+' opening';
+  const wd=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short'});
+  const tn=(v,dg=2)=>Math.abs(v/1000).toLocaleString('en-US',{minimumFractionDigits:dg,maximumFractionDigits:dg});
+  const sg=(v,dg=2)=>(v>=0?'+':'−')+tn(v,dg);
+  const scope=inNR?'NR Garments':st.sys==='All'?'all units':esc(st.sys)+' units';
+  T('tenh',`Last ${n} days · production, delivery and stock`);T('tensub',`${fds(d0)} – ${fds(d1)} ${new Date(d1+'T00:00:00').getFullYear()} · ${scope} · metric ton (MT)`);
+  const why=P>Dl?`because production (${tonf(P)} MT) was higher than delivery (${tonf(Dl)} MT)`:P<Dl?`because delivery (${tonf(Dl)} MT) was higher than production (${tonf(P)} MT)`:'';
+  const nrO=inNR?0:su(pe||W[0],pe?6:0,['N']),nrC=inNR?0:su(W[n-1],6,['N']);
+  T('tenmsg',`Stock went ${net>=0?'up':'down'} by <b class="${net>=0?'':'xd'}">${tn(net)} MT</b> in ${n} days${why&&((net>=0)===(P>Dl))?', '+why:''}.<small>${tonf(open0)} MT → ${tonf(close)} MT (${sg(net/Math.max(1,open0)*1e5,1).replace(/(\.\d)$/,'$1')}%). Delivery was ${P?Math.round(Dl/P*100):0}% of production.${inNR?'':` Usable ${sg(net-(nrC-nrO))} MT, NR Garments ${sg(nrC-nrO)} MT.`}</small>`);
+  T('tenk',`<div><div class="l"><i style="background:var(--c-prod)"></i>Production</div><div class="v">${tn(P)} <small>MT</small></div><div class="s">${tn(avgP,1)} MT per day</div></div>
+    <div><div class="l"><i style="background:var(--c-del)"></i>Delivery</div><div class="v">${tn(Dl)} <small>MT</small></div><div class="s">${tn(avgD,1)} MT per delivery day (${act.length})</div></div>
+    <div><div class="l"><i style="background:var(--c-stk)"></i>Stock change</div><div class="v ${net>=0?'xu':'xd'}">${sg(net)} <small>MT</small></div><div class="s">${sg(net/Math.max(1,open0)*1e5,1)}% in ${n} days</div></div>
+    <div><div class="l"><i style="background:var(--tab)"></i>Closing · ${fds(d1)}</div><div class="v">${tn(close)} <small>MT</small></div><div class="s">was ${tn(open0)} MT on ${openLbl}</div></div>`);
+  const fl=(l,v,c)=>`<div class="${c||''}"><div class="l">${l}</div><div class="v">${v}</div></div>`,op=x=>`<div class="op">${x}</div>`;
+  T('tenflow',fl('Opening · '+openLbl,tn(open0))+op('+')+fl('Production',tn(P))+op('+')+fl('Re-winding / return',tn(RW))+op('−')+fl('Delivery',tn(Dl))+op('−')+fl('Issue / twisting',tn(IS))
+    +(Math.abs(OT)>=500?op('±')+fl('Report corrections',sg(OT)):'')+op('=')+fl('Closing · '+fds(d1),tn(close),'end'));
+  /* chart */
+  const cwid=(document.getElementById('tenchart').clientWidth||720),Wd=Math.max(340,Math.min(760,cwid)),sm=Wd<560,H=sm?220:250,ml=sm?30:40,mr=sm?40:54,mt=24,mb=34,cw=Wd-ml-mr,ch=H-mt-mb;
+  const top=Math.max(60,Math.ceil(Math.max(...days.map(x=>Math.max(x.prod,x.del)))/1000/60)*60);
+  const cl=days.map(x=>x.close/1000).concat([open0/1000]),lo=Math.min(...cl),hi=Math.max(...cl),pad=Math.max(20,(hi-lo)*0.15);
+  const step=[10,20,25,50,100,200,250,500,1000].find(s=>(hi-lo+2*pad)/s<=4)||1000;
+  const sMin=Math.floor((lo-pad)/step)*step,sMax=Math.ceil((hi+pad)/step)*step;
+  const y=v=>mt+ch-(v/1000)/top*ch,ys=v=>mt+ch-((v/1000)-sMin)/(sMax-sMin)*ch,gw=cw/n,bw=Math.min(18,gw*.3);
+  let g=`<svg viewBox="0 0 ${Wd} ${H}" role="img" aria-label="Daily production and delivery bars with closing stock line">`;
+  const gs=top/4;for(let v=0;v<=top+0.01;v+=gs)g+=`<line class="g" x1="${ml}" x2="${Wd-mr}" y1="${y(v*1000)}" y2="${y(v*1000)}"/><text class="ax" x="${ml-6}" y="${y(v*1000)+3}" text-anchor="end">${Math.round(v)}</text>`;
+  for(let v=sMin;v<=sMax+0.01;v+=step)g+=`<text class="ax2" x="${Wd-mr+5}" y="${ys(v*1000)+3}">${sm&&v>=1000?(v/1000).toFixed(step%100?2:1)+'k':v.toLocaleString('en-US')}</text>`;
+  g+=`<text class="ax" x="2" y="11">MT/day</text><text class="ax2" x="${Wd-2}" y="11" text-anchor="end">stock MT</text>`;
+  days.forEach((x,i)=>{const cx=ml+gw*i+gw/2;
+    g+=`<rect class="bp" x="${cx-bw-1}" y="${y(x.prod)}" width="${bw}" height="${Math.max(0,y(0)-y(x.prod))}" rx="2"><title>${fds(x.d)} production ${tonf(x.prod)} MT</title></rect>`;
+    g+=`<rect class="bd" x="${cx+1}" y="${y(x.del)}" width="${bw}" height="${Math.max(0,y(0)-y(x.del))}" rx="2"><title>${fds(x.d)} delivery ${tonf(x.del)} MT</title></rect>`;
+    if(x.del<=500)g+=`<text class="z" x="${cx+1+bw/2}" y="${y(0)-4}" text-anchor="middle">0</text>`;
+    g+=`<text class="dl" x="${cx}" y="${H-mb+15}" text-anchor="middle">${sm?Number(x.d.slice(8)):fds(x.d)}</text><text class="wd" x="${cx}" y="${H-mb+27}" text-anchor="middle">${sm?wd(x.d).slice(0,2):wd(x.d)}</text>`});
+  g+=`<line class="avg" x1="${ml}" x2="${Wd-mr}" y1="${y(avgP)}" y2="${y(avgP)}"/>`;
+  const pts=days.map((x,i)=>[ml+gw*i+gw/2,ys(x.close)]);
+  g+=`<polyline class="sl" points="${pts.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')}"/>`+pts.map((p,i)=>`<circle class="sd" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.4"><title>${fds(days[i].d)} closing ${tonf(days[i].close)} MT</title></circle>`).join('');
+  const lp=pts[n-1];g+=`<text class="lab" x="${lp[0]}" y="${lp[1]-9}" text-anchor="middle">${tn(close,0)}</text></svg>`;
+  T('tenchart',g);
+  /* daily table */
+  let h=`<thead><tr><th>Date</th><th class="r">Prod<span class="lx">uction</span></th><th class="r">Deliv<span class="lx">ery</span></th><th class="r">Stock</th><th class="r">Closing</th></tr></thead><tbody>`;
+  days.forEach(x=>{const z=x.del<=500;h+=`<tr class="${z?'nod':''}"><td><span class="wk">${wd(x.d)} </span>${fds(x.d)}</td><td class="r num">${tonf(x.prod)}</td><td class="r num">${z?'—':tonf(x.del)}</td><td class="r num ${x.net>=0?'xu':'xd'}"><b>${x.net>=0?'▲':'▼'} ${tn(x.net)}</b></td><td class="r num">${tonf(x.close)}</td></tr>`});
+  h+=`<tr class="gtot"><td>${n} days</td><td class="r num">${tonf(P)}</td><td class="r num">${tonf(Dl)}</td><td class="r num ${net>=0?'xu':'xd'}">${net>=0?'▲':'▼'} ${tn(net)}</td><td class="r num">${tonf(close)}</td></tr>`;
+  T('tentab',h+'</tbody>');
+  /* unit bars */
+  const U=SU.map(([k,nm])=>{const o=pe?f(pe,k,6):f(W[0],k,0),c=f(W[n-1],k,6);return {k,nm,ch:c-o,c,p:W.reduce((a,e)=>a+f(e,k,1),0),d:W.reduce((a,e)=>a+f(e,k,4),0)}}).sort((a,b)=>b.ch-a.ch);
+  const mx=Math.max(1,...U.map(u=>Math.abs(u.ch)));
+  T('tenunit',`<div class="tu h"><span>Unit</span><span style="text-align:center">▼ down · up ▲</span><span style="text-align:right">Change</span><span style="text-align:right">Closing</span></div>`+U.map(u=>`<div class="tu" title="${esc(u.nm)}: production ${tonf(u.p)} MT, delivery ${tonf(u.d)} MT"><span class="n">${esc(u.nm)}</span><span class="b"><i class="${u.ch>=0?'u':'d'}" style="width:${Math.max(.6,Math.abs(u.ch)/mx*50).toFixed(1)}%"></i></span><span class="c ${u.ch>=0?'xu':'xd'}">${sg(u.ch,1)}</span><span class="cl">${tn(u.c,0)}</span></div>`).join(''));
+  /* key points */
+  const mxD=days.reduce((a,x)=>x.del>a.del?x:a,days[0]),mnD=days.reduce((a,x)=>x.del<a.del?x:a,days[0]);
+  const l3=days.slice(-3),l3d=S(l3,'del')/3,l3p=S(l3,'prod')/3,l3n=S(l3,'net');
+  const ups=U.filter(u=>u.ch>=1000).slice(0,3),dns=U.filter(u=>u.ch<=-1000).sort((a,b)=>a.ch-b.ch).slice(0,2);
+  const nrDel=inNR?0:W.reduce((a,e)=>a+su(e,4,['N']),0);
+  const pts2=[];
+  pts2.push(`<div><b>Production vs delivery</b>Production averaged ${tn(avgP,0)} MT a day. Delivery ranged from ${mnD.del<=500?'none':tn(mnD.del,0)+' MT'} (${wd(mnD.d)} ${fds(mnD.d)}) to ${tn(mxD.del,0)} MT (${fds(mxD.d)}).</div>`);
+  pts2.push(`<div><b>Last 3 days</b>Delivery ${tn(l3d,0)} MT a day against ${tn(l3p,0)} MT produced, so stock went ${l3n>=0?'up':'down'} ${tn(l3n,0)} MT.</div>`);
+  if(SU.length>1)pts2.push(`<div><b>Where stock moved</b>${ups.length?'Built up in '+ups.map(u=>`${esc(u.nm)} ${sg(u.ch,1)}`).join(', ')+' MT.':'No unit built up stock.'} ${dns.length?'Fell in '+dns.map(u=>`${esc(u.nm)} ${sg(u.ch,1)}`).join(', ')+' MT.':''}</div>`);
+  pts2.push(`<div><b>To keep stock flat</b>Delivery needs about ${tn((P+RW-IS)/Math.max(1,act.length||n),0)} MT a day on delivery days${inNR?'':`. NR Garments took ${Dl?Math.round(nrDel/Dl*100):0}% of all delivery`}.</div>`);
+  T('tenpts',pts2.join(''));
+  T('tennote',`From the daily stock reports. Production = packing production. Stock = closing stock of each report; "Stock" in the table is the change from the day before. Updates every time a new day is added.`);
+}
 function renderDelivery(SU,inNR){
   /* delivery = the "Delivery" column of each day's report (issues / twisting / re-winding delivery not included) */
   const ST=inNR?['N']:['R','L','N'];
@@ -1536,6 +1679,7 @@ document.getElementById('dlvcsv').onclick=async()=>{
 };
 
 drawFams();render();RENDER=render;
+{let tw=window.innerWidth<560,tt=null;window.addEventListener('resize',()=>{clearTimeout(tt);tt=setTimeout(()=>{const w=window.innerWidth<560;if(w!==tw){tw=w;render()}},250)})}
 }
 function boot(){document.querySelector('.page').innerHTML=PAGE0;app()}
 let rzt;window.addEventListener('resize',()=>{clearTimeout(rzt);rzt=setTimeout(()=>{if(RENDER)RENDER()},200)});
